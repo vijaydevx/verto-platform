@@ -1,14 +1,36 @@
+<div align="center">
+
+<img src="https://img.shields.io/badge/VERTO-CAMPUS%20SANCTUARY-2E7D5B?style=for-the-badge&logo=supabase&logoColor=white" alt="Verto Badge" />
+
 # VERTO 2.0
-# VERTO CAMPUS SANCTUARY
+
 ### Reclaiming what's yours, one campus at a time.
 A premium, centralized lost & found platform for campus communities powered by React 19, TypeScript, Supabase, and Framer Motion.
 
-[Live Demo](https://verto-platform-jsa7.vercel.app/)   [Report Bug](https://github.com/vijaydevx/verto-platform/issues)   [Request Feature](https://github.com/vijaydevx/verto-platform/issues)
+[![Live Demo](https://img.shields.io/badge/LIVE_DEMO-VISIT_SITE-8B5CF6?style=for-the-badge&logo=vercel&logoColor=white)](https://verto-platform-jsa7.vercel.app/)
+[![Report Bug](https://img.shields.io/badge/REPORT-BUG-EF4444?style=for-the-badge&logo=github&logoColor=white)](https://github.com/vijaydevx/verto-platform/issues)
+[![Request Feature](https://img.shields.io/badge/REQUEST-FEATURE-3B82F6?style=for-the-badge&logo=github&logoColor=white)](https://github.com/vijaydevx/verto-platform/issues)
 
----
+<br/>
 
-### Preview
-[verto-platform-jsa7.vercel.app](https://verto-platform-jsa7.vercel.app/)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-4.1-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12-ff0055?style=for-the-badge&logo=framer&logoColor=white)
+![Deploy](https://img.shields.io/badge/Deploy-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+<hr />
+
+</div>
+
+## Preview
+
+<div align="center">
+  <a href="https://verto-platform-jsa7.vercel.app/">verto-platform-jsa7.vercel.app</a>
+</div>
+
+<br/>
 
 ### Tech Stack
 | Category | Stack |
