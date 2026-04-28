@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 150 8% 97%;
+  --foreground: 150 8% 11%;
+  --surface: 154 10% 93%;
+  --surface-strong: 154 12% 88%;
+  --border: 150 5% 85%;
+  --muted: 150 5% 92%;
+  --muted-foreground: 150 5% 45%;
+  --primary: 154 46% 34%; /* Soft Green #2E7D5B */
+  --primary-foreground: 0 0% 100%;
+  --accent: 200 15% 95%; /* Mist tone */
+  --accent-foreground: 150 8% 11%;
+  --success: 160 84% 29%;
+  --danger: 0 76% 56%;
+  --warning: 36 96% 48%;
+  --radius: 1.5rem; /* 24px */
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+.font-serif {
+  font-family: 'DM Serif Display', serif;
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/40 backdrop-blur-xl border border-white/20;
+  }
+  
+  .shadow-premium {
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+* {
+  @apply border-border;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#root {
+  @apply min-h-screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
