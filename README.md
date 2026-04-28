@@ -20,8 +20,7 @@ Built with a 100% free, serverless, high-performance stack, Verto is optimized f
 |-------|------------|
 | **Frontend** | React 19, Vite, TypeScript, Tailwind CSS, React Router 7 |
 | **State Management** | TanStack Query |
-| **Backend/Auth** | Supabase (PostgreSQL, Auth, RLS) |
-| **Storage** | Cloudflare R2 (S3-compatible, $0 egress) |
+| Backend/Auth/Storage | Supabase (PostgreSQL, Auth, Storage, RLS) |
 | **Deployment** | Vercel (Serverless + Edge) |
 
 ## 🚀 Getting Started

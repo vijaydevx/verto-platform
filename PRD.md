@@ -44,9 +44,8 @@
 | **Frontend** | React 19 + Vite + TypeScript + Tailwind CSS + React Router 7 | Unlimited | Type safety, rapid UI development, zero bundle bloat |
 | **State/HTTP** | TanStack Query + `@supabase/supabase-js` | N/A | Automatic caching, deduping, retry, optimistic updates |
 | **Auth** | Supabase Auth | 50k MAU free | Secure JWT, auto-refresh, email verification, bcrypt hashing |
-| **Database** | Supabase PostgreSQL | 500MB DB, 2GB bandwidth/mo | ACID compliance, lightning-fast relational queries, Row Level Security |
-| **Storage** | Cloudflare R2 | 10GB storage, $0 egress fees | S3-compatible, global CDN, ideal for image-heavy apps |
-| **Hosting/API** | Vercel (Serverless + Edge) | 100GB bandwidth, 100GB build hours | Auto-SSL, global CDN, instant deploys, zero-config sleeping |
+| **Database/Storage** | Supabase (PostgreSQL & Storage) | 500MB DB, 1GB Storage | ACID compliance, integrated asset management, RLS |
+| **Hosting/API** | Vercel (Serverless + Edge) | 100GB bandwidth | Auto-SSL, global CDN, instant deploys |
 
 ---
 
