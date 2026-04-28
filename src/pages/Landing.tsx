@@ -10,14 +10,21 @@ import {
   Zap,
   CheckCircle2,
   Package,
-  Check
+  Check,
+  Music,
+  Music2,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import { motion, Variants, useScroll, useTransform, useMotionTemplate } from "framer-motion";
 import { Button } from "@/components/ui/Button";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { useAuth } from "@/hooks/useAuth";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useToast } from "@/components/ui/Toast";
+
+const BACKGROUND_MUSIC_URL = "/music.mp3";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -234,6 +241,52 @@ export function LandingPage() {
   const videoARef = useRef<HTMLVideoElement>(null);
   const videoBRef = useRef<HTMLVideoElement>(null);
 
+  const { showToast } = useToast();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [isMusicMuted, setIsMusicMuted] = useState(false);
+  const [showMusicTooltip, setShowMusicTooltip] = useState(false);
+
+  const toggleMusic = async () => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio(BACKGROUND_MUSIC_URL);
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.25;
+    }
+
+    try {
+      if (isMusicPlaying) {
+        audioRef.current.pause();
+        setIsMusicPlaying(false);
+      } else {
+        await audioRef.current.play();
+        setIsMusicPlaying(true);
+      }
+    } catch (error) {
+      showToast({
+        variant: "error",
+        title: "Unable to play music",
+        description: "Please try clicking the button again.",
+      });
+    }
+  };
+
+  const toggleMute = () => {
+    if (audioRef.current) {
+      audioRef.current.muted = !isMusicMuted;
+      setIsMusicMuted(!isMusicMuted);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
   const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
     const video = e.currentTarget;
     const fadeDuration = 1000; 
@@ -265,6 +318,65 @@ export function LandingPage() {
   return (
     <PageTransition>
       <Navbar />
+      
+      {/* Floating Music Controls */}
+      <div className="fixed bottom-8 right-8 z-[100] flex items-center gap-3">
+        <div
+          className="relative"
+          onMouseEnter={() => setShowMusicTooltip(true)}
+          onMouseLeave={() => setShowMusicTooltip(false)}
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={toggleMusic}
+            className={`flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-bold shadow-premium transition-all ${
+              isMusicPlaying
+                ? "border-primary/40 bg-white/80 text-primary backdrop-blur-md"
+                : "border-black/10 bg-white/80 text-slate-600 backdrop-blur-md hover:text-primary"
+            }`}
+            aria-label={isMusicPlaying ? "Pause background music" : "Play background music"}
+          >
+            {isMusicPlaying ? (
+              <>
+                <Music2 className="h-4 w-4" />
+                <span>Music On</span>
+              </>
+            ) : (
+              <>
+                <Music className="h-4 w-4" />
+                <span>Music Off</span>
+              </>
+            )}
+          </motion.button>
+          
+          {showMusicTooltip && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="absolute bottom-full right-0 mb-3 whitespace-nowrap rounded-xl bg-slate-900/90 px-4 py-2 text-xs font-bold text-white shadow-xl backdrop-blur-sm"
+            >
+              {isMusicPlaying ? "Click to pause music" : "Click to play music"}
+              <div className="absolute -bottom-1 right-6 h-2 w-2 rotate-45 bg-slate-900/90" />
+            </motion.div>
+          )}
+        </div>
+
+        {isMusicPlaying && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={toggleMute}
+            className="grid h-12 w-12 place-items-center rounded-full border border-black/10 bg-white/80 text-slate-600 shadow-premium backdrop-blur-md transition hover:text-primary"
+            aria-label={isMusicMuted ? "Unmute music" : "Mute music"}
+          >
+            {isMusicMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+          </motion.button>
+        )}
+      </div>
+
       <div className="relative min-h-screen w-full bg-[#F7F9F8] overflow-hidden">
         {/* Anti-Flicker Liquid Radial Wipe - Full Screen */}
         <motion.div 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
@@ -12,15 +12,11 @@ import {
   HeartHandshake,
   MapPin,
   Megaphone,
-  Music,
-  Music2,
   Search,
   ShieldCheck,
   SlidersHorizontal,
   Sparkles,
   Users,
-  Volume2,
-  VolumeX,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
@@ -253,22 +249,15 @@ function ItemCardSkeleton() {
   );
 }
 
-const BACKGROUND_MUSIC_URL = "/music.mp3";
-
 export function DashboardPage() {
   const navigate = useNavigate();
   const { showToast } = useToast();
-  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState<ItemTypeFilter>("all");
   const [category, setCategory] = useState<CategoryFilter>("all");
   const [sortBy, setSortBy] = useState<SortFilter>("latest");
   const [savedItems, setSavedItems] = useState<Set<string>>(new Set());
-  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [isMusicMuted, setIsMusicMuted] = useState(false);
-  const [showMusicTooltip, setShowMusicTooltip] = useState(false);
 
   const debouncedSearch = useDebounce(searchQuery, 400);
 
@@ -278,9 +267,8 @@ export function DashboardPage() {
     q: debouncedSearch,
     category: category,
     sort: sortBy,
-    includeArchived: false, // Default to false for live feed
+    includeArchived: false,
   });
-
 
   useEffect(() => {
     if (query.error) {
@@ -306,12 +294,9 @@ export function DashboardPage() {
     }));
   }, [query.data?.items]);
 
-  const activeItems = useMemo(() => allItems.filter((item) => item.isActive), [allItems]);
-
   const filteredItems = useMemo(() => {
     return allItems;
   }, [allItems]);
-
 
   const stats = useMemo(() => {
     const found = allItems.filter((item) => item.type === "found").length;
@@ -332,46 +317,6 @@ export function DashboardPage() {
     });
   };
 
-  const toggleMusic = async () => {
-    if (!audioRef.current) {
-      audioRef.current = new Audio(BACKGROUND_MUSIC_URL);
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.25;
-    }
-
-    try {
-      if (isMusicPlaying) {
-        audioRef.current.pause();
-        setIsMusicPlaying(false);
-      } else {
-        await audioRef.current.play();
-        setIsMusicPlaying(true);
-      }
-    } catch (error) {
-      showToast({
-        variant: "error",
-        title: "Unable to play music",
-        description: "Please try clicking the button again.",
-      });
-    }
-  };
-
-  const toggleMute = () => {
-    if (audioRef.current) {
-      audioRef.current.muted = !isMusicMuted;
-      setIsMusicMuted(!isMusicMuted);
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
-
   const clearFilters = () => {
     setSearchQuery("");
     setFilterType("all");
@@ -381,65 +326,13 @@ export function DashboardPage() {
   return (
     <PageTransition>
       <section className="mx-auto max-w-[1500px] px-4 pb-12 pt-8 sm:px-6 lg:px-8" style={{ backgroundColor: "#F8F9FA" }}>
-<motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease: "easeOut" }}
-      className="mb-6 overflow-hidden rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_30px_-24px_rgba(0,0,0,0.45)] lg:p-8"
-    >
-      <div className="mb-4 flex items-center justify-end gap-2">
-        <div
-          className="relative"
-          onMouseEnter={() => setShowMusicTooltip(true)}
-          onMouseLeave={() => setShowMusicTooltip(false)}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="mb-6 overflow-hidden rounded-2xl border border-black/5 bg-white p-6 shadow-[0_12px_30px_-24px_rgba(0,0,0,0.45)] lg:p-8"
         >
-          <button
-            type="button"
-            onClick={toggleMusic}
-            className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition ${
-              isMusicPlaying
-                ? "border-[#2E7D5B]/40 bg-[#2E7D5B]/10 text-[#2E7D5B]"
-                : "border-black/10 bg-white text-slate-600 hover:text-[#2E7D5B]"
-            }`}
-            aria-label={isMusicPlaying ? "Pause background music" : "Play background music"}
-          >
-            {isMusicPlaying ? (
-              <>
-                <Music2 className="h-4 w-4" />
-                <span>Music On</span>
-              </>
-            ) : (
-              <>
-                <Music className="h-4 w-4" />
-                <span>Music Off</span>
-              </>
-            )}
-          </button>
-          {showMusicTooltip && (
-            <motion.div
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="absolute right-0 top-full mt-2 whitespace-nowrap rounded-lg bg-slate-800 px-3 py-2 text-xs text-white shadow-lg"
-            >
-              {isMusicPlaying ? "Click to pause music" : "Click to play music"}
-              <div className="absolute -top-1 right-4 h-2 w-2 rotate-45 bg-slate-800" />
-            </motion.div>
-          )}
-        </div>
-
-        {isMusicPlaying && (
-          <button
-            type="button"
-            onClick={toggleMute}
-            className="grid h-10 w-10 place-items-center rounded-full border border-black/10 bg-white text-slate-600 transition hover:text-[#2E7D5B]"
-            aria-label={isMusicMuted ? "Unmute music" : "Mute music"}
-          >
-            {isMusicMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-          </button>
-        )}
-      </div>
-
-      <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.22em] text-[#2E7D5B]">Live Feed</p>
               <h1 className="mt-3 text-5xl font-black tracking-tight text-[#101828] md:text-6xl">
@@ -800,53 +693,11 @@ export function DashboardPage() {
                 Make a difference
               </h3>
               <p className="mt-2 text-sm text-slate-600">
-                Help your fellow students by reporting items you find on campus.
+                Help your fellow students. Every returned item makes our campus a better sanctuary for everyone.
               </p>
-              <Button className="mt-4 h-10 rounded-full bg-[#2E7D5B] px-5 font-bold text-white hover:bg-[#245f45]" onClick={() => void navigate("/post")}>
-                Report an item
-              </Button>
             </Card>
           </motion.aside>
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.55, ease: "easeOut" }}
-          className="mt-6 rounded-2xl border border-black/5 bg-white p-4 shadow-[0_12px_24px_-22px_rgba(0,0,0,0.45)] sm:p-6"
-        >
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="flex items-center gap-2 text-base font-bold text-slate-900">
-                <Bell className="h-4 w-4 text-[#2E7D5B]" />
-                Get notified instantly
-              </p>
-              <p className="mt-1 text-sm text-slate-500">Never miss an update about your items.</p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setNotificationsEnabled((current) => !current)}
-              className="inline-flex items-center gap-3 rounded-full border border-black/10 px-4 py-2 transition hover:border-[#2E7D5B]/40"
-              aria-pressed={notificationsEnabled}
-            >
-              <span className="text-sm font-semibold text-slate-700">
-                {notificationsEnabled ? "Notifications enabled" : "Enable notifications"}
-              </span>
-              <span
-                className={`relative h-7 w-12 rounded-full transition ${
-                  notificationsEnabled ? "bg-[#2E7D5B]" : "bg-slate-300"
-                }`}
-              >
-                <span
-                  className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition ${
-                    notificationsEnabled ? "left-6" : "left-1"
-                  }`}
-                />
-              </span>
-            </button>
-          </div>
-        </motion.div>
       </section>
     </PageTransition>
   );
