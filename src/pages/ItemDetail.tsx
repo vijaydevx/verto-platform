@@ -100,6 +100,9 @@ export function ItemDetailPage() {
         title: "Archive failed",
         description: message,
       });
+    }
+  };
+
   const handleClaim = async () => {
     if (!item || !user) {
       showToast({ variant: "error", title: "Authentication required", description: "Please sign in to claim this item." });
@@ -274,7 +277,6 @@ export function ItemDetailPage() {
 
                 <p className="mt-6 text-base leading-8 text-muted-foreground">{item.description}</p>
               </Card>
-            </div>
 
               {/* Comments Section */}
               <Card className="mt-8">
@@ -338,7 +340,7 @@ export function ItemDetailPage() {
             </div>
 
             <div className="space-y-6">
-
+              <Card>
                 <h2 className="text-lg font-bold text-foreground">Details</h2>
                 <div className="mt-5 space-y-4 text-sm text-muted-foreground">
                   <div className="flex items-start gap-3">
