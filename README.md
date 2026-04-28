@@ -1,5 +1,7 @@
 # VERTO 2.0 🚀
 
+**[Live Demo: verto-platform.vercel.app](https://verto-platform-jsa7.vercel.app/)**
+
 **Verto** is a centralized, secure, and highly responsive platform designed for campus communities. It allows students, faculty, and staff to report, browse, and recover lost and found items with ease.
 
 Built with a 100% free, serverless, high-performance stack, Verto is optimized for zero-cost scalability and a premium user experience.
