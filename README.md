@@ -1,75 +1,87 @@
-# VERTO 2.0 🚀
+# VERTO 2.0
+# VERTO CAMPUS SANCTUARY
+### Reclaiming what's yours, one campus at a time.
+A premium, centralized lost & found platform for campus communities powered by React 19, TypeScript, Supabase, and Framer Motion.
 
-**[Live Demo: verto-platform.vercel.app](https://verto-platform-jsa7.vercel.app/)**
-
-**Verto** is a centralized, secure, and highly responsive platform designed for campus communities. It allows students, faculty, and staff to report, browse, and recover lost and found items with ease.
-
-Built with a 100% free, serverless, high-performance stack, Verto is optimized for zero-cost scalability and a premium user experience.
-
-![Verto Banner](https://images.unsplash.com/photo-1544377193-33dcf4d68fb5?auto=format&fit=crop&q=80&w=1200)
-
-## ✨ Key Features
-
-- **Secure Authentication**: Campus email validation and JWT-based session management via Supabase.
-- **Smart Item Management**: Report lost/found items with title, description, location, and images.
-- **Advanced UI/UX**: Fully responsive design with Framer Motion transitions and professional styling.
-- **Performance Optimized**: Client-side image compression (WebP) and lightning-fast database queries.
-- **Secure by Design**: Row Level Security (RLS) ensures only owners can manage their posts.
-
-## 🛠️ Technical Stack
-
-| Layer | Technology |
-|-------|------------|
-| **Frontend** | React 19, Vite, TypeScript, Tailwind CSS, React Router 7 |
-| **State Management** | TanStack Query |
-| Backend/Auth/Storage | Supabase (PostgreSQL, Auth, Storage, RLS) |
-| **Deployment** | Vercel (Serverless + Edge) |
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js >= 20.0.0
-- A Supabase project
-- A Cloudflare R2 bucket (optional for local dev if mocked)
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/vijaydevx/verto-platform.git
-   cd verto-platform
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Configure Environment Variables:**
-   Create a `.env.local` file in the root and add your credentials:
-   ```env
-   VITE_SUPABASE_URL=your_supabase_url
-   VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-   # Add other required variables as per PRD
-   ```
-
-4. **Run development server:**
-   ```bash
-   npm run dev
-   ```
-
-## 📂 Project Structure
-
-- `src/`: Core application logic, components, and pages.
-- `api/`: Serverless functions (Vercel).
-- `supabase/`: Database migrations and configuration.
-- `public/`: Static assets.
-
-## 🛡️ License
-
-This project is private and intended for campus use.
+[Live Demo](https://verto-platform-jsa7.vercel.app/)   [Report Bug](https://github.com/vijaydevx/verto-platform/issues)   [Request Feature](https://github.com/vijaydevx/verto-platform/issues)
 
 ---
 
-Built with ❤️ for the campus community by [vijaydevx](https://github.com/vijaydevx).
+### Preview
+[verto-platform-jsa7.vercel.app](https://verto-platform-jsa7.vercel.app/)
+
+### Tech Stack
+| Category | Stack |
+| :--- | :--- |
+| **Frontend** | React 19 + TypeScript 5.8 |
+| **Styling** | Tailwind CSS (Premium Modern Aesthetic) |
+| **Animation** | Framer Motion / Motion |
+| **Backend** | Supabase (PostgreSQL + Auth + Storage) |
+| **Build** | Vite 6 |
+| **Icons** | Lucide React |
+| **Deployment** | Vercel |
+
+### Sections
+| # | Section | Highlights |
+| :--- | :--- | :--- |
+| 1 | **Landing** | Cinematic hero with background video, music player, and atmospheric haze. |
+| 2 | **Dashboard** | Live campus feed with advanced filtering, real-time search, and community stats. |
+| 3 | **Post Item** | 3-step publishing flow with image compression and campus auto-linking. |
+| 4 | **Item Detail** | Deep-dive view with image galleries, claim system, and engagement tracking. |
+| 5 | **My Items** | Personalized management dashboard for tracking your reported items. |
+| 6 | **Profile** | Verified campus identity management and notification settings. |
+
+### Effects System
+*   **Atmospheric Haze** ........... Multi-plane depth system for the landing page
+*   **Smooth Transitions** ........ Page-level transitions using Framer Motion
+*   **Background Music** .......... Floating glassmorphism player with spatial audio feel
+*   **Image Compression** ........ Client-side WebP optimization for lightning uploads
+*   **Campus Scoping** ............ Automatic RLS-based filtering for your specific university
+*   **Glassmorphism** .............. Modern translucent UI components with backdrop blur
+*   **Responsive Engine** ......... Seamless experience from mobile to ultra-wide displays
+*   **Smart Matching** ............. Proactive notification system for potential item matches
+
+### Quick Start
+```bash
+# Clone
+git clone https://github.com/vijaydevx/verto-platform.git
+cd verto-platform
+
+# Install
+npm install
+
+# Dev
+npm run dev        # → http://localhost:5173
+
+# Build
+npm run build      # → dist/
+
+# Preview
+npm run preview
+```
+
+### Project Structure
+```text
+verto-platform/
+├── src/
+│   ├── components/       # Reusable UI & Layout components
+│   ├── hooks/            # Custom hooks (Auth, Items, Upload, Debounce)
+│   ├── lib/              # API clients and utility functions
+│   ├── pages/            # Main application views (Dashboard, Post, Detail)
+│   ├── providers/        # Context providers (Auth, Theme)
+│   └── types/            # TypeScript definitions
+├── api/                  # Serverless functions (Vercel)
+├── supabase/             # Database migrations & RLS policies
+├── public/               # Static assets (music.mp3, campus-hero.png)
+├── index.html
+├── vite.config.ts
+└── tsconfig.json
+```
+
+### Deploy
+**Vercel (recommended)** — Import from GitHub, auto-detects Vite, zero config. Ensure all environment variables from `.env.local` are added to the Vercel project settings.
+
+### License
+MIT
+
+**Built with ❤️ for the campus community by [@vijaydevx](https://github.com/vijaydevx)**
