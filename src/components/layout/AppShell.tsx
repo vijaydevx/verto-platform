@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
 
-const navLinks = [
+interface NavLinkItem {
+  to: string;
+  label: string;
+  badge?: string | number;
+}
+
+const navLinks: NavLinkItem[] = [
   { to: "/dashboard", label: "Browse" },
   { to: "/post", label: "Post Item" },
   { to: "/my-items", label: "My Items" },
